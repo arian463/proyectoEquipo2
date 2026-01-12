@@ -1,5 +1,9 @@
-FROM php:8.2-apache
+FROM node:22-bookworm
 
-COPY src/ /var/www/html/
+WORKDIR /usr/src/app
 
-EXPOSE 80
+RUN apt-get update && apt-get install -y
+
+EXPOSE 3000
+
+CMD [ "npm", "run", 'dev' ]

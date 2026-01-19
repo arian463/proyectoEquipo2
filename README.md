@@ -35,3 +35,8 @@ La implementación de esta plataforma digital ofrece ventajas competitivas frent
 1. **Mayor disponibilidad:** Acceso desde cualquier dispositivo con internet en cualquier momento.
 2. **Optimización del tiempo:** El sistema asume la carga de gestión de turnos, liberando al personal de tareas repetitivas.
 3. **Integridad de información:** Uso de una base de datos centralizada que actualiza la disponibilidad en tiempo real.
+
+## Tecnologías
+El proyecto se desarrollará utilizando las siguientes tecnologías:
+* **Frontend:** Next.js, React.js, Tailwind CSS, TypeScript
+* **Backend:** Node.js, Express.js, TypeScript, MySQL

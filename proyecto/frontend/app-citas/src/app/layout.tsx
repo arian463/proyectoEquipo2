@@ -1,4 +1,5 @@
 import "./globals.css";
+import Menu from "../components/Menu";
 
 export default function RootLayout({
   children,
@@ -8,6 +9,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
+        <Menu />
         {children}
       </body>
     </html>

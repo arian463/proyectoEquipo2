@@ -10,12 +10,12 @@ export interface ITokenBlacklist extends RowDataPacket {
 
 export class TokenBlacklistModel {
     static async addToBlacklist(token: string, expiresAt: Date): Promise<void> {
-        const query = 'INSERT INTO token_blacklist (token, expires_at) VALUES (?, ?)';
+        const query = 'INSERT INTO revoked_tokens (token, expires_at) VALUES (?, ?)';
         await connection.execute(query, [token, expiresAt]);
     }
 
     static async isTokenBlacklisted(token: string): Promise<boolean> {
-        const query = 'SELECT id FROM token_blacklist WHERE token = ?';
+        const query = 'SELECT id FROM revoked_tokens WHERE token = ?';
         const [rows] = await connection.execute<[]>(query, [token]);
         return rows.length > 0;
     }

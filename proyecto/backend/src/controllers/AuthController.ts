@@ -36,6 +36,22 @@ class AuthController {
             response.status(500).json({ message: "Error interno del servidor", error });
         }
     }
+
+    static async logout(request: Request, response: Response) {
+        try {
+            const { authorization } = request.headers;
+
+            if (!authorization) {
+                response.status(401).json({ message: "No se proporciono un token" })
+                return;
+            }
+
+            await AuthService.logout(authorization)
+            response.status(200).json({ message: "Logout exitoso" })
+        } catch (error) {
+            response.status(500).json({ message: "Error al cerrar sesión" })
+        }
+    }
 }
 
 export default AuthController;

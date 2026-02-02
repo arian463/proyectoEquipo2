@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { randomUUID } from "node:crypto";
 import AuthModel from "@models/AuthModel";
+import TokenBlacklistModel from "@models/TokenBlacklistModel";
 
 import "dotenv/config"
 
@@ -40,6 +41,26 @@ class AuthService {
         }
 
         return { id, full_name, email, role };
+    }
+
+    static async logout(authorization: string) {
+        try {
+            const token = authorization.split(' ')[1];
+
+            const decoded: any = jwt.decode(token);
+            if (!decoded || !decoded.exp) {
+                throw new Error("Token no válido");
+            }
+
+            const expiresAt = new Date(decoded.exp * 1000);
+
+            await TokenBlacklistModel.addToBlacklist(token, expiresAt);
+
+            return true;
+        } catch (error) {
+            console.error(error);
+            throw new Error("Error al cerrar sesión");
+        }
     }
 
 }

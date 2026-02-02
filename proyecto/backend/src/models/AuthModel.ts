@@ -1,4 +1,4 @@
-import connection from "@config/config"
+import connection from "@config/db"
 
 class AuthModel {
     static async login(email: string) {

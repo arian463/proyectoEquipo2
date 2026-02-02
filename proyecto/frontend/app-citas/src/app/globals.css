@@ -14,7 +14,86 @@
 } */
 
 body {
-  background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  background-color: antiquewhite;
 }
+
+.menu{
+  background-color: rgb(250, 235, 215);
+  /* display: flex;
+  justify-content: center; */
+  padding: 10px 20px;
+  border-radius: 3px solid #33333333;
+}
+
+.menu-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.menu ul{
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li a{
+  font-family: "Roboto",sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #000000;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+}
+
+.menu li a:hover{
+  color: #007bff;
+}
+
+.register-button {
+  background-color: #007bff;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+}
+
+.register-button:hover {
+  background-color: #0056b3;
+}
+
+.breadcrumbs{
+text-align: center;
+font-size: 2rem;
+font-weight: bold;
+margin: 20px 0;
+}
+
+.roboto-serif-link {
+  font-family: "Roboto Serif", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100,
+    "GRAD" 0;
+  color: #000000;
+}
+
+.logo{
+  font-style: italic;
+  font-weight: 700;
+  font-size: 20px;
+  color: #000000;
+}
+

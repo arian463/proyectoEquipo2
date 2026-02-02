@@ -1,9 +1,15 @@
+import Breadcrumbs from "@/components/Breadcrumbs";
+
 export default function Home() {
   return (
     
-      <main>
+      <>
+      <Breadcrumbs items={[{ href: "/", label: "Inicio"}]}/>
+
+      {/* <main>
         <h1>Hello word</h1>
-      </main>
-   
+      </main> */}
+
+      </>
   );
 }

@@ -13,7 +13,7 @@ const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
       <ol>
         {items.map((item, index) => (
           <li key={index}>
-            <a href={item.href}>{item.label}</a>
+            <a href={item.href} className="roboto-serif-link">{item.label}</a>
           </li>
         ))}
       </ol>

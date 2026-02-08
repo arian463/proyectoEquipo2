@@ -10,7 +10,7 @@ const Menu = () => {
           
         </ul>
 
-        <a href="/registro" className="register-button">Registrarse</a>
+        <a href="/register" className="register-button">Registrarse</a>
       </div>
 
     </nav>

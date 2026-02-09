@@ -1,12 +1,41 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+// import { useRouter } from "next/navigation";
+// import { useState } from "react";
 
 export default function LoginPage() {
-  const router = useRouter();
+  // const router = useRouter();
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [error, setError] = useState("");
 
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setError("");
+
+  //   try {
+  //     const res = await fetch("http://localhost:3001/login", { 
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ email, password }),
+  //     });
+
+  //     const data = await res.json();
+
+  //     if (!res.ok) {
+  //       setError(data.message || "Error al iniciar sesión");
+  //       return;
+  //     }
+
+  //     localStorage.setItem("token", data.data.token);
+
+  //     router.push("/dashboard");
+  //   } catch (err) {
+  //     setError("Error de conexión con el servidor");
+  //   }
+  // };
+// ---------------------------------------------------frontend
   
 
   return (

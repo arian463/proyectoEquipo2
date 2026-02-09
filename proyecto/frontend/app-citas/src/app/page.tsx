@@ -1,6 +1,11 @@
-import Breadcrumbs from "@/components/Breadcrumbs";
+"use client"
+// import Breadcrumbs from "@/components/Breadcrumbs";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+
+  const router = useRouter();
+
   return (
     
       <>
@@ -27,7 +32,7 @@ export default function Home() {
             Una plataforma web para que tus clientes reserven en línea y tú mantengas el control.
           </p>
           
-          <button className="btn-primary">
+          <button className="btn-primary" onClick={() => router.push ('/login')} >
             Comenzar
           </button>
 

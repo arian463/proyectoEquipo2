@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import Menu from "./Menu";
 import { axe, toHaveNoViolations } from "jest-axe";
 
+expect.extend(toHaveNoViolations);
 
 describe("Menu", () => {
     test("renderiza enlaces principales", () => {

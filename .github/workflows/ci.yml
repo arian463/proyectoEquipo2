@@ -14,23 +14,28 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v4
 
-      - name: Validar documentación básica
+      - name: Validar estructura base
         run: |
-          echo "📄 Validando README"
-          test -f README.md || echo "⚠️ README pendiente"
+          test -f README.md || exit 1
+          test -f Dockerfile || exit 1
 
-      - name: Validar páginas de error (Next.js App Router)
+      - name: Instalar dependencias frontend (si existe)
         run: |
-          echo "🚨 Validando páginas de error"
-          test -f src/app/error.tsx || echo "⚠️ error.tsx pendiente"
-          test -f src/app/not-found.tsx || echo "⚠️ not-found.tsx pendiente"
+          if [ -f frontend/app-citas/package.json ]; then
+            cd frontend/app-citas
+            npm install
+          else
+            echo "⚠️ Frontend no presente, se omiten tests"
+          fi
 
-      - name: Validar estructura de rutas
+      - name: Ejecutar tests frontend
         run: |
-          echo "🗂️ Validando estructura de rutas"
-          test -d src/app/about || echo "⚠️ Ruta /about pendiente"
-          test -d src/app/registro || echo "⚠️ Ruta /registro pendiente"
-          test -d src/app/contact || echo "⚠️ Ruta /contact pendiente"
+          if [ -f frontend/app-citas/package.json ]; then
+            cd frontend/app-citas
+            npm test -- --watch=false
+          else
+            echo "⚠️ Tests frontend omitidos"
+          fi
 
       - name: Build Docker image
         run: docker build -t gestion-citas .

@@ -57,7 +57,7 @@ export default function LoginPage() {
       <form className="login-form">
         <label>
           Correo Electrónico <span className="required">*</span>
-          <input type="email" placeholder="tuemail@gmail.com" />
+          <input type="email" placeholder="tuemail@gmail.com" autoFocus/>
         </label>
 
         <label>

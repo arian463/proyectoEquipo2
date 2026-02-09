@@ -13,7 +13,7 @@ export default function RegistroPage() {
       <form className="registro-form">
         <label>
           Nombre Completo <span className="required">*</span>
-          <input type="text" placeholder="juan perez" />
+          <input type="text" placeholder="juan perez" autoFocus/>
         </label>
 
         <label>

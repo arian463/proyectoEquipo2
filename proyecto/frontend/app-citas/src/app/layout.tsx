@@ -1,11 +1,19 @@
+"use client";
+
 import "./globals.css";
 import Menu from "../components/Menu";
+import { usePathname } from "next/navigation";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const pathname = usePathname();
+
+  const hideMenuRoutes = ["/registro","/login"]
+
   return (
     <html lang="es">
       <head>
@@ -18,7 +26,8 @@ export default function RootLayout({
         
       </head>
       <body>
-        <Menu />
+        {!hideMenuRoutes.includes(pathname) && <Menu />}
+        
         {children}
       </body>
     </html>

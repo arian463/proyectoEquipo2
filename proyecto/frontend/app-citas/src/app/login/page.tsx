@@ -5,6 +5,9 @@ import Link from "next/link";
 // import { useState } from "react";
 
 export default function LoginPage() {
+
+  // ----------------------------------------------------------------enlace con BACKEND
+  
   // const router = useRouter();
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
@@ -35,9 +38,12 @@ export default function LoginPage() {
   //     setError("Error de conexión con el servidor");
   //   }
   // };
-// ---------------------------------------------------frontend
-  
 
+
+
+
+
+// ---------------------------------------------------frontend
   return (
     <main className="login-container">
       <Link href="/">← Volver</Link>

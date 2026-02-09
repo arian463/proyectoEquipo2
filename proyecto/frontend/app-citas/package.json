@@ -25,6 +25,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "axe-core": "^4.11.1",
     "babel-jest": "^30.2.0",
     "babel-plugin-react-compiler": "1.0.0",
     "cypress": "^15.10.0",

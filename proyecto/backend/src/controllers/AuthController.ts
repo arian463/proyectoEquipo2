@@ -22,9 +22,9 @@ class AuthController {
 
     static async register(request: Request, response: Response) {
         try {
-            const { full_name, email, password, role } = request.body;
+            const { full_name, email, password } = request.body;
 
-            const result = await AuthService.register(full_name, email, password, role);
+            const result = await AuthService.register(full_name, email, password, "owner");
 
             if (!result) {
                 response.status(401).json({ message: "Crendenciales inválidas" });

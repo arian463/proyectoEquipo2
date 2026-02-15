@@ -12,7 +12,11 @@ export default function RootLayout({
 
   const pathname = usePathname();
 
-  const hideMenuRoutes = ["/registro","/login"]
+  const hideMenuRoutes = ["/register","/login","/client/servicios","/client/citas", "/client/Explorar",
+                          "/admin/dashboard", "/admin/service","/admin/NuevoServicio","/admin/EditService",
+                          "/admin/ListClient","/admin/NewClient","/admin/EditClient","/admin/ListCitas",
+                          "/client/SelectService","/client/date"
+                        ]
 
   return (
     <html lang="es">

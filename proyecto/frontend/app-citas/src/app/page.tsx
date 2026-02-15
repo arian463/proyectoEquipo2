@@ -32,7 +32,7 @@ export default function Home() {
             Una plataforma web para que tus clientes reserven en línea y tú mantengas el control.
           </p>
           
-          <button className="btn-primary" onClick={() => router.push ('/login')} >
+          <button className="btn-primary" onClick={() => router.push('/admin/service')}>
             Comenzar
           </button>
 

@@ -22,16 +22,16 @@ class AuthController {
 
     static async register(request: Request, response: Response) {
         try {
-            const { full_name, email, password } = request.body;
+            const { full_name, email, password, phone } = request.body;
 
-            const result = await AuthService.register(full_name, email, password, "owner");
+            const result = await AuthService.register(full_name, email, password, "owner", phone);
 
             if (!result) {
                 response.status(401).json({ message: "Crendenciales inválidas" });
                 return;
             }
 
-            response.status(200).json({ message: "Registro exitoso", data: result })
+            response.status(201).json({ message: "Registro exitoso", data: result })
         } catch (error) {
             response.status(500).json({ message: "Error interno del servidor", error });
         }

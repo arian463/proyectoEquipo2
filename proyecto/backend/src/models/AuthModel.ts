@@ -10,9 +10,9 @@ class AuthModel {
         }
     }
 
-    static async register(id: string, full_name: string, email: string, password: string, role: string) {
+    static async register(id: string, full_name: string, email: string, password: string, role: string, phone: string) {
         try {
-            await connection.query('INSERT INTO users (id, full_name, email, password, role) VALUES (?, ?, ?, ?, ?)', [id, full_name, email, password, role]);
+            await connection.query('INSERT INTO users (id, full_name, email, password, role, phone) VALUES (?, ?, ?, ?, ?, ?)', [id, full_name, email, password, role, phone]);
             const [rows] = await connection.query('SELECT * FROM users WHERE id = ?', [id]);
             return rows as any;
         } catch (error) {

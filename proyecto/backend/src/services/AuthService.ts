@@ -30,17 +30,17 @@ class AuthService {
         return { token, id, full_name, email, role };
     }
 
-    static async register(full_name: string, email: string, password: string, role: string) {
+    static async register(full_name: string, email: string, password: string, role: string, phone: string) {
         const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT_ROUNDS));
         const id = randomUUID();
 
         try {
-            await AuthModel.register(id, full_name, email, hashedPassword, role);
+            await AuthModel.register(id, full_name, email, hashedPassword, role, phone);
         } catch (error) {
             throw new Error("Error al registrar el usuario");
         }
 
-        return { id, full_name, email, role };
+        return { id, full_name, email, role, phone };
     }
 
     static async logout(authorization: string) {

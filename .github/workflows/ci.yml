@@ -28,7 +28,7 @@ jobs:
             echo "⚠️ Frontend no presente, se omiten tests"
           fi
 
-      - name: Ejecutar tests frontend
+      - name: Ejecutar tests frontend 
         run: |
           if [ -f frontend/app-citas/package.json ]; then
             cd frontend/app-citas

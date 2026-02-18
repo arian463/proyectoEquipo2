@@ -1,0 +1,1 @@
+export { GET, POST } from "@/features/auth/api/auth/[...nextauth]/route";

@@ -17,6 +17,7 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    setError("");
 
     const result = await signIn("credentials", {
       email: email,
@@ -57,6 +58,21 @@ export default function LoginPage() {
         <p className="registro-link">
           ¿No tienes cuenta? <a href="/register">Regístrate</a>
         </p>
+
+
+        {loading && (
+          <div role="status" aria-live="polite" className="loader">
+            <span className="spinner" aria-hidden="true"></span>
+            Cargando...
+          </div>
+        )}
+
+
+        {error && (
+          <p role="alert" className="error-message">
+            {error}
+          </p>
+        )}
 
         <button type="submit" className="entrar-btn" disabled={loading}>Entrar</button>
       </form>

@@ -8,6 +8,6 @@ const routerAuth = Router();
 
 routerAuth.post("/login", validateData(userLoginSchema), AuthController.login);
 routerAuth.post("/register", validateData(userRegisterSchema), AuthController.register);
-routerAuth.post('/logout', checkAuth, AuthController.logout)
+routerAuth.post('/logout', checkAuth(), AuthController.logout)
 
 export default routerAuth;

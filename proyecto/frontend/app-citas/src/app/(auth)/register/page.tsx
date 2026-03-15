@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { registerUser } from "@/features/auth/actions/auth-actions";
+import type { ValidationDetail } from "@/features/auth/actions/auth-actions";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -14,30 +15,33 @@ export default function RegistroPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [validationErrors, setValidationErrors] = useState<ValidationDetail[]>([]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setRole("owner");
     e.preventDefault();
     setLoading(true);
     setError("");
+    setValidationErrors([]);
     setSuccess("");
 
     try {
       const result = await registerUser(full_name, email, password, role, phone);
 
-      if (result.success) {
-        setSuccess("Usuario registrado exitosamente");
-      } else {
+      if (!result.ok) {
         setError(result.message);
+        setValidationErrors(result.validation ?? []);
+        return;
       }
 
-      if (result.success) {
-        router.push("/login");
-      }
+      setSuccess("Usuario registrado exitosamente");
+      router.push("/login");
 
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
+        const validation = (error as Error & { validation?: ValidationDetail[] }).validation ?? [];
+        setValidationErrors(validation);
       } else {
         setError("Error al registrar usuario");
       }
@@ -72,10 +76,30 @@ export default function RegistroPage() {
           <input type="password" placeholder="********" onChange={(e) => setPassword(e.target.value)} />
         </label>
 
+
         <label>
           Número telefónico <span className="required">*</span>
           <input type="tel" placeholder="+52XXXXXXXXXX" onChange={(e) => setPhone(e.target.value)} />
         </label>
+
+        {(error || validationErrors.length > 0) && (
+          <div
+            role="alert"
+            className="validation-alert mb-4 rounded border border-red-400 bg-red-50 px-4 py-3 text-sm text-red-800"
+          >
+            {error && <p>{error}</p>}
+            {validationErrors.length > 0 && (
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                {validationErrors.map((detail, index) => (
+                  <li key={`${detail.field}-${index}`}>
+                    <strong className="capitalize">{detail.field.replace(/_/g, " ")}</strong>: {detail.message}
+                    {detail.example && <span className="block text-xs font-normal text-red-700">{detail.example}</span>}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
 
         <p className="login-link">
           ¿Ya tienes cuenta? <a href="/login">Iniciar Sesión</a>

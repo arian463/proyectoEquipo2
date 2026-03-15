@@ -6,25 +6,34 @@ interface AuthenticatedRequest extends Request {
     user?: any;
 }
 
-export const checkAuth = async (request: AuthenticatedRequest, response: Response, next: NextFunction) => {
-    const token = request.headers.authorization?.split(" ")[1];
+export const checkAuth = (roles?: string[]) => {
+    return async (request: AuthenticatedRequest, response: Response, next: NextFunction) => {
+        const token = request.headers.authorization?.split(" ")[1];
 
-    if (!token) {
-        return response.status(401).json({ message: "No hay token" });
-    }
+        if (!token) {
+            return response.status(401).json({ message: "No hay token" });
+        }
 
-    const isExpired = await TokenBlacklistModel.isTokenBlacklisted(token)
+        const isExpired = await TokenBlacklistModel.isTokenBlacklisted(token);
 
-    if (isExpired) {
-        return response.status(401).json({ message: "Token no válido (expirado)" });
-    }
+        if (isExpired) {
+            return response.status(401).json({ message: "Token no válido (expirado)" });
+        }
 
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET!);
-        request.user = decoded;
-        next();
-    } catch (error) {
-        return response.status(401).json({ message: 'Token no válido' });
-    }
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+            request.user = decoded;
 
-}
+            if (roles && roles.length > 0) {
+                const userRole = (decoded as any).role;
+                if (!userRole || !roles.includes(userRole)) {
+                    return response.status(403).json({ message: "No tienes permisos suficientes" });
+                }
+            }
+
+            next();
+        } catch (error) {
+            return response.status(401).json({ message: "Token no válido" });
+        }
+    };
+};

@@ -23,9 +23,7 @@ class AuthService {
             throw new Error("Credenciales inválidas");
         }
 
-        const timestamp = Date.now();
-
-        const token = jwt.sign({ id, timestamp }, process.env.JWT_SECRET as string, { expiresIn: "1h" });
+        const token = jwt.sign({ sub: id, role, email }, process.env.JWT_SECRET as string, { expiresIn: "1h" });
 
         return { token, id, full_name, email, role };
     }

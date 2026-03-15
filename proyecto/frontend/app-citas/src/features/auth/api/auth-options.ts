@@ -1,9 +1,17 @@
 import type { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { getBackendUrl } from "@/lib/backend"
+
+const backendUrl = getBackendUrl()
 
 export const authOptions: NextAuthOptions = {
     session: {
         strategy: "jwt",
+        maxAge: 60 * 60, // 1 hour
+        updateAge: 15 * 60, // refresh token every 15 minutes
+    },
+    jwt: {
+        maxAge: 60 * 60, // 1 hour
     },
     providers: [
         CredentialsProvider({
@@ -15,7 +23,7 @@ export const authOptions: NextAuthOptions = {
             async authorize(credentials) {
                 try {
 
-                    const res = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
+                    const res = await fetch(`${backendUrl}/auth/login`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
@@ -72,7 +80,7 @@ export const authOptions: NextAuthOptions = {
                 httpOnly: true,
                 sameSite: 'lax',
                 path: '/',
-                secure: false
+                secure: process.env.NODE_ENV === "production",
             },
         },
     },

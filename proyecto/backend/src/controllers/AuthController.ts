@@ -16,7 +16,7 @@ class AuthController {
 
             response.status(200).json({ message: "Login exitoso", data: result })
         } catch (error) {
-            response.status(500).json({ message: "Error interno del servidor", error });
+            response.status(500).json({ message: "Error interno del servidor" });
         }
     }
 
@@ -33,7 +33,7 @@ class AuthController {
 
             response.status(201).json({ message: "Registro exitoso", data: result })
         } catch (error) {
-            response.status(500).json({ message: "Error interno del servidor", error });
+            response.status(500).json({ message: "Error interno del servidor" });
         }
     }
 

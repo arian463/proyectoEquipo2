@@ -1,16 +1,37 @@
 "use client";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { signOutBackend } from "@/features/auth/actions/auth-actions";
 
 export default function DashboardPage() {
-    const { data: session } = useSession();
+    const router = useRouter();
+    const { data: session, status } = useSession();
 
-    const handleSignOut = () => {
+    const isAuthorized = Boolean(
+        session?.user?.role && ["owner", "admin"].includes(session.user.role)
+    );
+
+    // Redirect if not authenticated / not authorized
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            router.replace("/login");
+        } else if (status === "authenticated" && !isAuthorized) {
+            router.replace("/");
+        }
+    }, [status, isAuthorized, router]);
+
+    const handleSignOut = async () => {
         const token = session?.user.accessToken;
         if (token) {
-            try { signOutBackend(token); } catch (error) { console.log(error); }
+            try {
+                await signOutBackend(token);
+            } catch (error) {
+                console.error("Error al cerrar sesión en el backend", error);
+            }
         }
+
         signOut({ callbackUrl: "/login" });
     };
 

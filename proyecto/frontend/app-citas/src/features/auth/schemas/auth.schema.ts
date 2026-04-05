@@ -16,5 +16,19 @@ export const userRegisterSchema = z.object({
     phone: z.string().min(10, "Número inválido (mínimo 10 dígitos)").regex(/^\+?[0-9]+$/, "El número debe contener solo dígitos"),
 });
 
+export const userResetPasswordSchema = z.object({
+    email: emailSchema,
+});
+
+export const newPasswordSchema = z.object({
+    password: passwordSchema,
+    confirmPassword: z.string(),
+}).refine(data => data.password === data.confirmPassword, {
+    message: "Las contraseñas no coinciden",
+    path: ["confirmPassword"],
+});
+
 export type LoginInput = z.infer<typeof userLoginSchema>;
 export type RegisterInput = z.infer<typeof userRegisterSchema>;
+export type ResetPasswordInput = z.infer<typeof userResetPasswordSchema>;
+export type NewPasswordInput = z.infer<typeof newPasswordSchema>;

@@ -35,3 +35,35 @@ export async function signOutBackend(token: string) {
 
     return data;
 }
+
+export async function resetPassword(id: string, token: string, newPassword: string) {
+    const res = await fetch(`${process.env.BACKEND_URL}/auth/reset-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, token, newPassword }),
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+        throw new Error(data.message || "Error al restablecer la contraseña. Es posible que el enlace haya expirado.");
+    }
+
+    return data;
+}
+
+export async function forgotPassword(email: string) {
+    const res = await fetch(`${process.env.BACKEND_URL}/auth/forgot-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+        throw new Error(data.message || "Error al enviar el correo.");
+    }
+
+    return data;
+}

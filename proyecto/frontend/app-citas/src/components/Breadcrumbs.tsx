@@ -9,11 +9,12 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
   return (
-    <nav aria-label="breadcrumb" className="breadcrumbs">
-      <ol>
+    <nav aria-label="breadcrumb" className="text-center text-[2rem] font-bold my-5">
+      <ol className="flex justify-center space-x-2">
         {items.map((item, index) => (
           <li key={index}>
-            <a href={item.href} className="roboto-serif-link">{item.label}</a>
+            <a href={item.href} className="font-['Roboto_Serif',serif] font-normal text-black">{item.label}</a>
+            {index < items.length - 1 && <span className="mx-2">/</span>}
           </li>
         ))}
       </ol>

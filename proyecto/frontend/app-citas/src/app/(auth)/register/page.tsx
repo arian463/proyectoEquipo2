@@ -4,7 +4,7 @@ import Link from "next/link";
 import { registerUser } from "@/features/auth/actions/auth-actions";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { userRegisterSchema, type RegisterInput } from "@/features/auth";
+import { userRegisterSchema, type RegisterInput } from "@/features/auth/schemas/auth.schema";
 import Logo from "@/components/Logo";
 import { ArrowLeft, Loader2, AlertCircle, CheckCircle2, EyeOff, Eye } from "lucide-react";
 

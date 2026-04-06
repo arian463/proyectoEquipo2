@@ -1,9 +1,18 @@
-module.exports = {
-    preset: 'ts-jest',
-    testEnvironment: 'jsdom',
-    transform: {
-        '^.+\\.(ts|tsx|js|jsx)$': 'ts-jest',
+const nextJest = require("next/jest");
+
+const createJestConfig = nextJest({
+    dir: "./",
+});
+
+const customJestConfig = {
+    setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+    testEnvironment: "jsdom",
+    moduleNameMapper: {
+        "^@/(.*)$": "<rootDir>/src/$1",
     },
-    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-    setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+    transformIgnorePatterns: [
+        "/node_modules/(?!(\\.pnpm/)?(preact-render-to-string|jose|@panva/hkdf|next-auth))"
+    ]
 };
+
+module.exports = createJestConfig(customJestConfig);

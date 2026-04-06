@@ -4,7 +4,7 @@ import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
-import { userLoginSchema, type LoginInput } from "@/features/auth";
+import { userLoginSchema, type LoginInput } from "@/features/auth/schemas/auth.schema";
 import Logo from "@/components/Logo";
 import { ArrowLeft, Loader2, AlertCircle, EyeOff, Eye } from "lucide-react";
 

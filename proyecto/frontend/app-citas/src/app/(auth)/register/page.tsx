@@ -12,10 +12,10 @@ export default function RegistroPage() {
   const router = useRouter();
   const nameRef = useRef<HTMLInputElement>(null);
 
-  const [full_name, setFull_name] = useState("");
+  const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
+  const [telefono, setTelefono] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -33,7 +33,7 @@ export default function RegistroPage() {
     setSuccess("");
     setFieldErrors({});
 
-    const validation = userRegisterSchema.safeParse({ full_name, email, password, phone });
+    const validation = userRegisterSchema.safeParse({ nombre, email, password, telefono });
 
     if (!validation.success) {
       const formattedErrors: Partial<Record<keyof RegisterInput, string>> = {};
@@ -50,11 +50,11 @@ export default function RegistroPage() {
 
     try {
       const result = await registerUser(
-        validation.data.full_name,
+        validation.data.nombre,
         validation.data.email,
         validation.data.password,
         userRole,
-        validation.data.phone
+        validation.data.telefono
       );
 
       if (result.statusCode === 201) {
@@ -111,19 +111,19 @@ export default function RegistroPage() {
         <form className="grid grid-cols-1 gap-5" onSubmit={handleSubmit} noValidate>
 
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="full_name" className="text-sm font-semibold text-[#171717] ml-1">
+            <label htmlFor="nombre" className="text-sm font-semibold text-[#171717] ml-1">
               Nombre Completo <span className="text-red-500">*</span>
             </label>
             <input
-              id="full_name"
+              id="nombre"
               ref={nameRef}
               type="text"
               placeholder="Juan Pérez"
-              className={`h-12 px-4 border rounded-xl text-base bg-white outline-none transition-all focus:ring-4 focus:ring-blue-600/10 ${fieldErrors.full_name ? "border-red-500 ring-red-100" : "border-black/10 focus:border-blue-600"
+              className={`h-12 px-4 border rounded-xl text-base bg-white outline-none transition-all focus:ring-4 focus:ring-blue-600/10 ${fieldErrors.nombre ? "border-red-500 ring-red-100" : "border-black/10 focus:border-blue-600"
                 }`}
-              onChange={(e) => setFull_name(e.target.value)}
+              onChange={(e) => setNombre(e.target.value)}
             />
-            {fieldErrors.full_name && <p className="text-red-600 text-xs font-medium ml-1">{fieldErrors.full_name}</p>}
+            {fieldErrors.nombre && <p className="text-red-600 text-xs font-medium ml-1">{fieldErrors.nombre}</p>}
           </div>
 
           <div className="flex flex-col gap-1.5">
@@ -169,18 +169,18 @@ export default function RegistroPage() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="phone" className="text-sm font-semibold text-[#171717] ml-1">
+              <label htmlFor="telefono" className="text-sm font-semibold text-[#171717] ml-1">
                 Teléfono <span className="text-red-500">*</span>
               </label>
               <input
-                id="phone"
+                id="telefono"
                 type="tel"
                 placeholder="+52..."
-                className={`h-12 px-4 border rounded-xl text-base bg-white outline-none transition-all focus:ring-4 focus:ring-blue-600/10 ${fieldErrors.phone ? "border-red-500 ring-red-100" : "border-black/10 focus:border-blue-600"
+                className={`h-12 px-4 border rounded-xl text-base bg-white outline-none transition-all focus:ring-4 focus:ring-blue-600/10 ${fieldErrors.telefono ? "border-red-500 ring-red-100" : "border-black/10 focus:border-blue-600"
                   }`}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => setTelefono(e.target.value)}
               />
-              {fieldErrors.phone && <p className="text-red-600 text-xs font-medium ml-1">{fieldErrors.phone}</p>}
+              {fieldErrors.telefono && <p className="text-red-600 text-xs font-medium ml-1">{fieldErrors.telefono}</p>}
             </div>
           </div>
 

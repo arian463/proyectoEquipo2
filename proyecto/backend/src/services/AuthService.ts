@@ -44,9 +44,9 @@ class AuthService {
             throw new Error("Credenciales inválidas");
         }
 
-        const { id, full_name, role, password: passwordUser } = user[0];
+        const { id, nombre, rol, password_hash } = user[0];
 
-        const isPasswordValid = await bcrypt.compare(password, passwordUser);
+        const isPasswordValid = await bcrypt.compare(password, password_hash);
 
         if (!isPasswordValid) {
             throw new Error("Credenciales inválidas");
@@ -54,22 +54,20 @@ class AuthService {
 
         const timestamp = Date.now();
 
-        const token = jwt.sign({ id, timestamp }, process.env.JWT_SECRET as string, { expiresIn: "1h" });
+        const token = jwt.sign({ id, timestamp, rol }, process.env.JWT_SECRET as string, { expiresIn: "1h" });
 
-        return { token, id, full_name, email, role };
+        return { token, id, nombre, email, rol };
     }
 
-    static async register(full_name: string, email: string, password: string, role: string, phone: string) {
+    static async register(nombre: string, email: string, password: string, rol: string, telefono: string) {
         const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT_ROUNDS));
-        const id = randomUUID();
 
         try {
-            await AuthModel.createAccount(id, full_name, email, hashedPassword, role, phone);
+            const user = await AuthModel.createAccount(nombre, email, hashedPassword, rol, telefono);
+            return { id: user[0].id, nombre, email, rol, telefono };
         } catch (error) {
             throw new Error("Error al registrar el usuario");
         }
-
-        return { id, full_name, email, role, phone };
     }
 
     static async logout(authorization: string) {
@@ -122,7 +120,13 @@ class AuthService {
     }
 
     static async processResetPassword(id: string, token: string, newPassword: string) {
-        const user = await AuthModel.getUserById(id);
+        const userId = Number(id);
+
+        if (Number.isNaN(userId)) {
+            throw new Error("ID de usuario inválido");
+        }
+
+        const user = await AuthModel.getUserById(userId);
 
         if (user.length === 0) {
             throw new Error("El usuario no existe");
@@ -143,7 +147,7 @@ class AuthService {
 
         const hashedPassword = await bcrypt.hash(newPassword, Number(process.env.SALT_ROUNDS));
 
-        await AuthModel.updatePassword(id, hashedPassword);
+        await AuthModel.updatePassword(userId, hashedPassword);
     }
 
 }

@@ -30,10 +30,10 @@ export const authOptions: NextAuthOptions = {
                     if (res.ok) {
                         return {
                             id: data.id.toString(),
-                            name: data.full_name,
+                            name: data.nombre,
                             email: data.email,
                             accessToken: data.token,
-                            role: data.role,
+                            role: data.rol,
                         };
                     }
                     return null;

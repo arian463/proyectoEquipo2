@@ -1,10 +1,10 @@
 "use server"
-export async function registerUser(full_name: string, email: string, password: string, role: string, phone: string) {
+export async function registerUser(nombre: string, email: string, password: string, role: string, telefono: string) {
 
     const res = await fetch(`${process.env.BACKEND_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ full_name, email, password, role, phone }),
+        body: JSON.stringify({ nombre, email, password, role, telefono }),
     });
 
     const statusCode = res.status;

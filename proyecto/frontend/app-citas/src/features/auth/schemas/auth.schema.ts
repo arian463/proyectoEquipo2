@@ -10,10 +10,10 @@ export const userLoginSchema = z.object({
 });
 
 export const userRegisterSchema = z.object({
-    full_name: z.string("Formato inválido").min(8, "El nombre debe tener minimo 8 carácteres").regex(/^[a-zA-ZÑñÁáÉéÍíÓóÚú ]+$/, "El nombre debe contener solo letras"),
+    nombre: z.string("Formato inválido").min(8, "El nombre debe tener minimo 8 carácteres").regex(/^[a-zA-ZÑñÁáÉéÍíÓóÚú ]+$/, "El nombre debe contener solo letras"),
     email: emailSchema,
     password: passwordSchema,
-    phone: z.string().min(10, "Número inválido (mínimo 10 dígitos)").regex(/^\+?[0-9]+$/, "El número debe contener solo dígitos"),
+    telefono: z.string().min(10, "Número inválido (mínimo 10 dígitos)").regex(/^\+?[0-9]+$/, "El número debe contener solo dígitos"),
 });
 
 export const userResetPasswordSchema = z.object({
